@@ -32,6 +32,7 @@ public class HealthValueDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
+            // TODO Check if this onCreate-method have to be there for every table (temperature, blood pressure etc.)
             Log.d(LOG_TAG, "Creating table using SQL commands: ");
             // Create table "temperature"
             Log.d(LOG_TAG, "Table 'temperature': " + SQL_CREATE_TEMPERATURE_TABLE);
@@ -43,6 +44,7 @@ public class HealthValueDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // TODO Implement!
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
