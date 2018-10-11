@@ -44,7 +44,7 @@ public class HealthValueDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Implement!
+        // Implement, if database has to be upgraded. Tutorial: https://thebhwgroup.com/blog/how-android-sqlite-onupgrade
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
