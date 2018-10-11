@@ -4,12 +4,11 @@ import android.widget.EditText;
 
 public class ValidatorErrorMessages {
 
- 
 
     /**
      * Sets an custom error message to an editText
      *
-     * @param editText - The EditText-Object.
+     * @param editText    - The EditText-Object.
      * @param errorString - The error message.
      */
     public static void setError(EditText editText, String errorString) {
