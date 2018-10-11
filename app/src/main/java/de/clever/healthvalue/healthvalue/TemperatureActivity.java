@@ -2,6 +2,12 @@ package de.clever.healthvalue.healthvalue;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import de.clever.healthvalue.util.Range;
+import de.clever.healthvalue.util.validators.ValidatorEditTextNumberRange;
 
 public class TemperatureActivity extends AppCompatActivity {
 
@@ -11,7 +17,34 @@ public class TemperatureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
+
+
+        final EditText editTemperature = findViewById(R.id.editTemperature);
+        final Button bAddTemperature = findViewById(R.id.bAddTemperature);
+
+        final ValidatorEditTextNumberRange validatorEditTextNumberRange = new ValidatorEditTextNumberRange(editTemperature, new Range(35.0, 42.0));
+
+        bAddTemperature.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                if (validatorEditTextNumberRange.isValid()) {
+
+                    Double dTemperature = Double.parseDouble(editTemperature.getText().toString());
+                    try {
+                        // TODO write to database.
+
+
+                    } catch (Exception ex) {
+                        // TODO Implement exception handling
+                    }
+                } else {
+                    // TODO Write validation errors to gui.
+                }
+
+            }
+
+        });
     }
 
-    // TODO Connect and open database using TemperatureDao.
+
 }
