@@ -1,8 +1,8 @@
 package de.clever.healthvalue.entities;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+
+import de.clever.healthvalue.util.DateTimeUtils;
 
 public class Temperature {
 
@@ -52,11 +52,11 @@ public class Temperature {
 
     /**
      * Get the date and time as a string in local format.
+     *
      * @return localized date and time where the temperature was added as string.
      */
     public String getDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        return dateFormat.format(getDate());
+        return DateTimeUtils.getDateTimeAsLocalizedString(getDate());
     }
 
 
