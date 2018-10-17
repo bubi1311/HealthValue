@@ -12,9 +12,9 @@ public class HealthValueDbHelper extends SQLiteOpenHelper {
     // Values for Temperature
     private static final String TABLE_TEMPERATURE = "temperature";
     private static final String COLUMN_TEMPERATURE_ID = "_id";
-    private static final String COLUMN_TEMPERATURE_BODYTEMPERATURE = "body_temperature";
-    private static final String COLUMN_TEMPERATURE_SCALE = "scale";
-    private static final String COLUMN_TEMPERATURE_TIMESTAMP = "timestamp";
+    public static final String COLUMN_TEMPERATURE_BODYTEMPERATURE = "body_temperature";
+    public static final String COLUMN_TEMPERATURE_SCALE = "scale";
+    public static final String COLUMN_TEMPERATURE_TIMESTAMP = "timestamp";
     // SQLs for Temperature
     private static final String SQL_CREATE_TEMPERATURE_TABLE = "CREATE TABLE " + TABLE_TEMPERATURE
             + " (" + COLUMN_TEMPERATURE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
