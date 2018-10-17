@@ -48,6 +48,7 @@ public class TemperatureDao {
 
     public Temperature getTemperature(int id){
         throw new UnsupportedOperationException("Not implemented yet");
+        // see https://o7planning.org/de/10433/die-anleitung-zu-android-sqlite-database
     }
 
     public List<Temperature> getAllTemperatures(){
