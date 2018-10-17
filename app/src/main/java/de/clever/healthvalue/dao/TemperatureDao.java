@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.Date;
+import java.util.List;
+
 import de.clever.healthvalue.entities.Temperature;
 import de.clever.healthvalue.util.HealthValueDbHelper;
 
@@ -41,6 +44,18 @@ public class TemperatureDao {
 
         database.insert(HealthValueDbHelper.TABLE_TEMPERATURE,null,values);
         database.close();
+    }
+
+    public Temperature getTemperature(int id){
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    public List<Temperature> getAllTemperatures(){
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    public List<Temperature> getTemperaturesBetweenDates(Date from, Date until){
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
 }
