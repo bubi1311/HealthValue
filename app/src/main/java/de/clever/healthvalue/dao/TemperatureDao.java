@@ -1,5 +1,6 @@
 package de.clever.healthvalue.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -33,8 +34,13 @@ public class TemperatureDao {
 
     public void addData(Temperature temperature) {
         Log.d(LOG_TAG, "Adding temperature data to database. ");
-// ContentValues
-        //values.put()
+        ContentValues values = new ContentValues();
+        values.put(HealthValueDbHelper.COLUMN_TEMPERATURE_BODYTEMPERATURE, temperature.getBodyTemperature());
+        values.put(HealthValueDbHelper.COLUMN_TEMPERATURE_SCALE, temperature.getScale());
+        values.put(HealthValueDbHelper.COLUMN_TEMPERATURE_TIMESTAMP, temperature.getDateTime());
+
+        database.insert(HealthValueDbHelper.TABLE_TEMPERATURE,null,values);
+        database.close();
     }
 
 }
