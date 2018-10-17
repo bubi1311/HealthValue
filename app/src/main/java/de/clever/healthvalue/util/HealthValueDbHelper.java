@@ -10,7 +10,7 @@ public class HealthValueDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "HealthValueDB";
     private static final int DB_VERSION = 1;
     // Values for Temperature
-    private static final String TABLE_TEMPERATURE = "temperature";
+    public static final String TABLE_TEMPERATURE = "temperature";
     private static final String COLUMN_TEMPERATURE_ID = "_id";
     public static final String COLUMN_TEMPERATURE_BODYTEMPERATURE = "body_temperature";
     public static final String COLUMN_TEMPERATURE_SCALE = "scale";
