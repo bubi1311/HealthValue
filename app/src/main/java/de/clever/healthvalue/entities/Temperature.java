@@ -1,10 +1,15 @@
 package de.clever.healthvalue.entities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Temperature {
 
     private double bodyTemperature;
     private String scale; // C = Celsius, F = Fahrenheit
     private long id;
+    private Date date; // Date and time where the temperature was added.
 
     public Temperature(double bodyTemperature, String scale, long id) {
         this.bodyTemperature = bodyTemperature;
@@ -35,6 +40,23 @@ public class Temperature {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    /**
+     * Get the date and time as a string in local format.
+     * @return localized date and time where the temperature was added as string.
+     */
+    public String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(getDate());
     }
 
 
