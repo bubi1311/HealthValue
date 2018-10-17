@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import de.clever.healthvalue.util.Range;
 import de.clever.healthvalue.util.validators.ValidatorEditTextNumberRange;
+import de.clever.healthvalue.dao.TemperatureDao;
 
 public class TemperatureActivity extends AppCompatActivity {
 
@@ -24,6 +25,8 @@ public class TemperatureActivity extends AppCompatActivity {
 
         final ValidatorEditTextNumberRange validatorEditTextNumberRange = new ValidatorEditTextNumberRange(editTemperature, new Range(35.0, 42.0));
 
+        final TemperatureDao temperatureDao = new TemperatureDao(this);
+
         bAddTemperature.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -32,6 +35,7 @@ public class TemperatureActivity extends AppCompatActivity {
                     Double dTemperature = Double.parseDouble(editTemperature.getText().toString());
                     try {
                         // TODO write to database.
+                        temperatureDao.open();
 
 
                     } catch (Exception ex) {

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import de.clever.healthvalue.entities.Temperature;
 import de.clever.healthvalue.util.HealthValueDbHelper;
 
 public class TemperatureDao {
 
     private static final String LOG_TAG = TemperatureDao.class.getSimpleName();
+    private SQLiteDatabase database;
 
     private HealthValueDbHelper dbHelper;
 
@@ -20,7 +22,7 @@ public class TemperatureDao {
 
     public void open() {
         Log.d(LOG_TAG, "Trying to get a database reference. ");
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        database = dbHelper.getWritableDatabase();
         Log.d(LOG_TAG, "Got database reference. Path to database: " + database.getPath());
     }
 
@@ -28,4 +30,11 @@ public class TemperatureDao {
         dbHelper.close();
         Log.d(LOG_TAG, "Closed database using HealthValueDbHelper. ");
     }
+
+    public void addData(Temperature temperature) {
+        Log.d(LOG_TAG, "Adding temperature data to database. ");
+// ContentValues
+        //values.put()
+    }
+
 }
