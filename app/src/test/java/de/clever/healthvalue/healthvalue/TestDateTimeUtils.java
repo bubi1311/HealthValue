@@ -22,11 +22,14 @@ public class TestDateTimeUtils {
     private final static String dateString2 = "1984-06-22 14:23:13";
     private final static String dateString3 = "1940-01-11 23:21:08";
 
+    private final static String patternInternational = "yyyy-MM-dd HH:mm:ss";
+
+
 
     @Test
     public void testGetDateTimeAsLocalizedString() {
-        Assert.assertEquals(dateString1, DateTimeUtils.getDateTimeAsLocalizedString(date1));
-        Assert.assertEquals(dateString2, DateTimeUtils.getDateTimeAsLocalizedString(date2));
-        Assert.assertEquals(dateString3, DateTimeUtils.getDateTimeAsLocalizedString(date3));
+        Assert.assertEquals(dateString1, DateTimeUtils.getDateTimeAsLocalizedString(date1, patternInternational));
+        Assert.assertEquals(dateString2, DateTimeUtils.getDateTimeAsLocalizedString(date2, patternInternational));
+        Assert.assertEquals(dateString3, DateTimeUtils.getDateTimeAsLocalizedString(date3, patternInternational));
     }
 }
