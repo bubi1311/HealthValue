@@ -1,7 +1,5 @@
 package de.clever.healthvalue.entities;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.clever.healthvalue.util.DateTimeUtils;
@@ -15,9 +13,9 @@ public class Temperature {
 
     /***
      * Temperature constructor.
-     * @param id
-     * @param bodyTemperature
-     * @param scale
+     * @param id - The id in the database.
+     * @param bodyTemperature - the body temperature.
+     * @param scale - the scale as string (C = Celsius or F = Fahrenheit)
      */
     public Temperature(long id, double bodyTemperature, String scale) {
         this.bodyTemperature = bodyTemperature;
@@ -27,10 +25,10 @@ public class Temperature {
 
     /***
      * Temperature constructor used for creating a new object read out of the DB.
-     * @param id
-     * @param bodyTemperature
-     * @param scale
-     * @param date
+     * @param id - The id in the database.
+     * @param bodyTemperature - the body temperature.
+     * @param scale - the scale as string (C = Celsius or F = Fahrenheit)
+     * @param date - The timestamp of the measure as a date object.
      */
     public Temperature(long id, double bodyTemperature, String scale, Date date) {
         this.id = id;
@@ -72,21 +70,15 @@ public class Temperature {
         this.date = date;
     }
 
+
     /**
-     * Get the date and time as a string in local format.
+     * Returns the Date in a localized string.
      *
-     * @return localized date and time where the temperature was added as string.
+     * @param pattern - the string for the pattern (example: "YYYY-MM-dd HH:mm:ss")
+     * @return - The DateTime as a formatted string.
      */
-    public String getDateTime() {
-        return DateTimeUtils.getDateTimeAsLocalizedString(getDate());
+    public String getDateTime(String pattern) {
+        return DateTimeUtils.getDateTimeAsLocalizedString(getDate(), pattern);
     }
-
-    public Date parseLocalStringToDate(String timestamp) throws ParseException {
-
-        Date date = new SimpleDateFormat(DateTimeUtils.dateTimePattern).parse(timestamp);
-
-        return date;
-    }
-
 
 }
