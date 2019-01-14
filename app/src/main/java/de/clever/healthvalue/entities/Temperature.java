@@ -1,5 +1,7 @@
 package de.clever.healthvalue.entities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.clever.healthvalue.util.DateTimeUtils;
@@ -30,8 +32,7 @@ public class Temperature {
      * @param scale
      * @param date
      */
-    public Temperature(long id, double bodyTemperature, String scale, Date date)
-    {
+    public Temperature(long id, double bodyTemperature, String scale, Date date) {
         this.id = id;
         this.bodyTemperature = bodyTemperature;
         this.scale = scale;
@@ -78,6 +79,13 @@ public class Temperature {
      */
     public String getDateTime() {
         return DateTimeUtils.getDateTimeAsLocalizedString(getDate());
+    }
+
+    public Date parseLocalStringToDate(String timestamp) throws ParseException {
+
+        Date date = new SimpleDateFormat(DateTimeUtils.dateTimePattern).parse(timestamp);
+
+        return date;
     }
 
 
