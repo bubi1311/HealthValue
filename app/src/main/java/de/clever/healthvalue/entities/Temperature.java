@@ -23,6 +23,21 @@ public class Temperature {
         this.id = id;
     }
 
+    /***
+     * Temperature constructor used for creating a new object read out of the DB.
+     * @param id
+     * @param bodyTemperature
+     * @param scale
+     * @param date
+     */
+    public Temperature(long id, double bodyTemperature, String scale, Date date)
+    {
+        this.id = id;
+        this.bodyTemperature = bodyTemperature;
+        this.scale = scale;
+        this.date = date;
+    }
+
     public double getBodyTemperature() {
         return bodyTemperature;
     }
