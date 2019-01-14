@@ -11,6 +11,12 @@ public class Temperature {
     private long id;
     private Date date; // Date and time where the temperature was added.
 
+    /***
+     * Temperature constructor.
+     * @param id
+     * @param bodyTemperature
+     * @param scale
+     */
     public Temperature(long id, double bodyTemperature, String scale) {
         this.bodyTemperature = bodyTemperature;
         this.scale = scale;
