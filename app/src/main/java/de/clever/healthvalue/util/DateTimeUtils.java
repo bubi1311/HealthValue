@@ -6,6 +6,8 @@ import java.util.Locale;
 
 public class DateTimeUtils {
 
+    public static String dateTimePattern = "yyyy-MM-dd HH:mm:ss";
+
     private DateTimeUtils(){
 
     }
@@ -17,7 +19,7 @@ public class DateTimeUtils {
      * @return localized date and time where the temperature was added as string.
      */
     public static String getDateTimeAsLocalizedString(Date datetime) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateTimePattern, Locale.getDefault());
         return dateFormat.format(datetime);
     }
 
