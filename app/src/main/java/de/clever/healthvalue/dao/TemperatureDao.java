@@ -52,7 +52,7 @@ public class TemperatureDao {
 
     public Temperature getTemperature(int id) {
         // see https://o7planning.org/de/10433/die-anleitung-zu-android-sqlite-database
-
+        Log.d(LOG_TAG, "Getting temperature data from the database for id: " + id);
 
         SQLiteDatabase dbRead = dbHelper.getReadableDatabase();
 
@@ -68,14 +68,11 @@ public class TemperatureDao {
         try {
             t = new Temperature(Long.parseLong(cursor.getString(0)), Double.parseDouble(cursor.getString(1)), cursor.getString(2), DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), dateTimePattern));
         } catch (ParseException e) {
-            Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " +e.getLocalizedMessage());
-        }
-        catch (NullPointerException npe)
-        {
-            Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " +npe.getLocalizedMessage());
-        }
-        finally {
-            if(cursor != null)
+            Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + e.getLocalizedMessage());
+        } catch (NullPointerException npe) {
+            Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + npe.getLocalizedMessage());
+        } finally {
+            if (cursor != null)
                 cursor.close();
         }
         return t;
