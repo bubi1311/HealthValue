@@ -68,8 +68,10 @@ public class TemperatureDao {
         try {
             t = new Temperature(Long.parseLong(cursor.getString(0)), Double.parseDouble(cursor.getString(1)), cursor.getString(2), DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), dateTimePattern));
         } catch (ParseException e) {
+            // TODO Error msg to the GUI.
             Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + e.getLocalizedMessage());
         } catch (NullPointerException npe) {
+            // TODO Error msg to the GUI
             Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + npe.getLocalizedMessage());
         } finally {
             if (cursor != null)
