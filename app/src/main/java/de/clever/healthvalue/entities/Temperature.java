@@ -11,6 +11,12 @@ public class Temperature {
     private long id;
     private Date date; // Date and time where the temperature was added.
 
+    /**
+     * Empty constructor. Please use the setters to fill the values!
+     */
+    public Temperature() {
+    }
+
     /***
      * Temperature constructor.
      * @param id - The id in the database.
