@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +84,44 @@ public class TemperatureDao {
     }
 
     public List<Temperature> getAllTemperatures() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Log.d(LOG_TAG, "Getting all temperature data from the database. ");
+
+        List<Temperature> temperatureList = new ArrayList<Temperature>();
+
+        String selectAllQuery = "SELECT * FROM " + HealthValueDbHelper.TABLE_TEMPERATURE;
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAllQuery, null);
+
+        // put all temperatures to the list
+        if (cursor.moveToFirst()) {
+            do {
+                Long id = Long.parseLong(cursor.getString(0));
+                Double bodyTemp = Double.parseDouble(cursor.getString(1));
+                String scale = cursor.getString(2);
+                Date timestamp = null;
+
+                Temperature temperature = new Temperature();
+                temperature.setId(id);
+                temperature.setBodyTemperature(bodyTemp);
+                temperature.setScale(cursor.getString(2));
+
+                try {
+                    timestamp = DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), dateTimePattern);
+                    temperature.setDate(timestamp);
+
+                    // add it to the list.
+                    temperatureList.add(temperature);
+                } catch (ParseException e) {
+                    // TODO Error msg to the GUI.
+                    Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + e.getLocalizedMessage());
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return temperatureList;
+
     }
 
     public List<Temperature> getTemperaturesBetweenDates(Date from, Date until) {
