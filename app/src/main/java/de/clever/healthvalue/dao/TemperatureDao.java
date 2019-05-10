@@ -21,7 +21,8 @@ public class TemperatureDao {
     private SQLiteDatabase database;
 
     private final HealthValueDbHelper dbHelper;
-    private static final String dateTimePattern = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private static final String EXCEPTION_PARSING_DB_CONTENT = "Exception parsing the database content to a temperature object. Message: ";
 
 
     public TemperatureDao(Context context) {
@@ -45,7 +46,7 @@ public class TemperatureDao {
         ContentValues values = new ContentValues();
         values.put(HealthValueDbHelper.COLUMN_TEMPERATURE_BODYTEMPERATURE, temperature.getBodyTemperature());
         values.put(HealthValueDbHelper.COLUMN_TEMPERATURE_SCALE, temperature.getScale());
-        values.put(HealthValueDbHelper.COLUMN_TEMPERATURE_TIMESTAMP, temperature.getDateTime(dateTimePattern));
+        values.put(HealthValueDbHelper.COLUMN_TEMPERATURE_TIMESTAMP, temperature.getDateTime(DATE_TIME_PATTERN));
 
         database.insert(HealthValueDbHelper.TABLE_TEMPERATURE, null, values);
         database.close();
@@ -62,25 +63,28 @@ public class TemperatureDao {
                         HealthValueDbHelper.COLUMN_TEMPERATURE_SCALE, HealthValueDbHelper.COLUMN_TEMPERATURE_TIMESTAMP},
                 HealthValueDbHelper.COLUMN_TEMPERATURE_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
-        if (cursor != null)
-            cursor.moveToFirst();
 
         Temperature t = null;
+
+        if (cursor != null)
+            cursor.moveToFirst();
+        else return null;
+
+
         try {
             String idAsString = cursor.getString(0);
             String bodyTemperatureAsString = cursor.getString(1);
 
             if (!idAsString.isEmpty() || !bodyTemperatureAsString.isEmpty())
-                t = new Temperature(Long.parseLong(idAsString), Double.parseDouble(bodyTemperatureAsString), cursor.getString(2), DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), dateTimePattern));
+                t = new Temperature(Long.parseLong(idAsString), Double.parseDouble(bodyTemperatureAsString), cursor.getString(2), DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), DATE_TIME_PATTERN));
         } catch (ParseException e) {
             // TODO Error msg to the GUI.
-            Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + e.getLocalizedMessage());
+            Log.e(LOG_TAG, EXCEPTION_PARSING_DB_CONTENT + e.getLocalizedMessage());
         } catch (NullPointerException npe) {
             // TODO Error msg to the GUI
-            Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + npe.getLocalizedMessage());
+            Log.e(LOG_TAG, EXCEPTION_PARSING_DB_CONTENT + npe.getLocalizedMessage());
         } finally {
-            if (cursor != null)
-                cursor.close();
+            cursor.close();
         }
         return t;
 
@@ -111,14 +115,14 @@ public class TemperatureDao {
                 temperature.setScale(cursor.getString(2));
 
                 try {
-                    timestamp = DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), dateTimePattern);
+                    timestamp = DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), DATE_TIME_PATTERN);
                     temperature.setDate(timestamp);
 
                     // add it to the list.
                     temperatureList.add(temperature);
                 } catch (ParseException e) {
                     // TODO Error msg to the GUI.
-                    Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + e.getLocalizedMessage());
+                    Log.e(LOG_TAG, EXCEPTION_PARSING_DB_CONTENT + e.getLocalizedMessage());
                 }
             } while (cursor.moveToNext());
         }
