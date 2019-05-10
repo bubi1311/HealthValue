@@ -20,8 +20,8 @@ public class TemperatureDao {
     private static final String LOG_TAG = TemperatureDao.class.getSimpleName();
     private SQLiteDatabase database;
 
-    private HealthValueDbHelper dbHelper;
-    private static String dateTimePattern = "yyyy-MM-dd HH:mm:ss";
+    private final HealthValueDbHelper dbHelper;
+    private static final String dateTimePattern = "yyyy-MM-dd HH:mm:ss";
 
 
     public TemperatureDao(Context context) {
@@ -67,7 +67,11 @@ public class TemperatureDao {
 
         Temperature t = null;
         try {
-            t = new Temperature(Long.parseLong(cursor.getString(0)), Double.parseDouble(cursor.getString(1)), cursor.getString(2), DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), dateTimePattern));
+            String idAsString = cursor.getString(0);
+            String bodyTemperatureAsString = cursor.getString(1);
+
+            if (!idAsString.isEmpty() || !bodyTemperatureAsString.isEmpty())
+                t = new Temperature(Long.parseLong(idAsString), Double.parseDouble(bodyTemperatureAsString), cursor.getString(2), DateTimeUtils.getParsedDateTimeFromLocalizedString(cursor.getString(3), dateTimePattern));
         } catch (ParseException e) {
             // TODO Error msg to the GUI.
             Log.e(LOG_TAG, "Exception parsing the database content to a temperature object. Message: " + e.getLocalizedMessage());
@@ -86,7 +90,7 @@ public class TemperatureDao {
     public List<Temperature> getAllTemperatures() {
         Log.d(LOG_TAG, "Getting all temperature data from the database. ");
 
-        List<Temperature> temperatureList = new ArrayList<Temperature>();
+        List<Temperature> temperatureList = new ArrayList<>();
 
         String selectAllQuery = "SELECT * FROM " + HealthValueDbHelper.TABLE_TEMPERATURE;
 
@@ -96,8 +100,8 @@ public class TemperatureDao {
         // put all temperatures to the list
         if (cursor.moveToFirst()) {
             do {
-                Long id = Long.parseLong(cursor.getString(0));
-                Double bodyTemp = Double.parseDouble(cursor.getString(1));
+                long id = Long.parseLong(cursor.getString(0));
+                double bodyTemp = Double.parseDouble(cursor.getString(1));
                 String scale = cursor.getString(2);
                 Date timestamp = null;
 
