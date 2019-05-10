@@ -36,10 +36,8 @@ public class DateTimeUtils {
      */
     public static Date getParsedDateTimeFromLocalizedString(String dateTime, String patternFormat) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(patternFormat, Locale.getDefault());
-        Date myDate = sdf.parse(dateTime);
+        return sdf.parse(dateTime);
 
-
-        return myDate;
     }
 
 }
